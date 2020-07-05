@@ -287,8 +287,7 @@ async function rebasingStatus(repository: Repository, dotGitPath: string, logTas
       }
 
       const ontoCommit = await getCommit(repository, await rebaseOntoPathFileTask!);
-      const ontoBranch = repository.state.refs.find(ref => ref.commit === ontoCommit.hash && ref.type !== RefType.RemoteHead) as MagitBranch;
-      ontoBranch.commitDetails = ontoCommit;
+      const ontoBranch = repository.state.refs.find(ref => ref.commit === ontoCommit.hash && ref.type !== RefType.RemoteHead);
 
       const doneCommits: Commit[] = (await logTask).slice(0, rebaseNextIndex - 1);
       const upcomingCommits: Commit[] = (await rebaseCommitListTask) ?? [];
@@ -297,6 +296,7 @@ async function rebasingStatus(repository: Repository, dotGitPath: string, logTas
         currentCommit: repository.state.rebaseCommit,
         origBranchName: (await rebaseHeadNameFileTask!).split('/')[2],
         ontoBranch,
+        ontoCommit,
         doneCommits,
         upcomingCommits
       };

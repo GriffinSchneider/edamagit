@@ -1,9 +1,9 @@
-import { Commit } from '../typings/git';
-import { MagitBranch } from './magitBranch';
+import { Commit, Branch } from '../typings/git';
 
 export interface MagitRebasingState {
   origBranchName: string;
-  ontoBranch: MagitBranch;
+  ontoBranch?: Branch;
+  ontoCommit: Commit;
   doneCommits: Commit[];
   currentCommit: Commit;
   upcomingCommits: Commit[];
